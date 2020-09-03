@@ -1,0 +1,12 @@
+version: "3"
+services:
+  images:
+    image: gitlab.mcsolutions.ru:4567/find-psy/back/users/images:latest
+    restart: always
+    ports:
+      - "3027:3027"
+
+networks:
+  default:
+    external:
+      name: find-psy.net

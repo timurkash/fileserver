@@ -1,0 +1,252 @@
+openapi: 3.0.2
+servers:
+  - url: "http://localhost:3027/api/images"
+  - url: "https://api.find-psy.com:8443/api/images"
+info:
+  description: "v1. images"
+  version: 0.1.0
+  title: "images"
+  contact:
+    email: "timurkash@yandex.ru"
+tags:
+  - name: "images"
+    description: "Examples for images"
+paths:
+  /upload:
+    post:
+      tags:
+        - "images"
+      summary: "upload file"
+      description: ""
+      operationId: upload
+      parameters:
+        - in: "header"
+          name: "token"
+          schema:
+            type: "string"
+            default: "f9403fc5f537b4ab332d"
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: "successful example operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdOut"
+        400:
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusOut"
+#  /download/{file}:
+#    get:
+#      tags:
+#        - "images"
+#      summary: "download file"
+#      description: ""
+#      operationId: download
+#      parameters:
+#        - in: "header"
+#          name: "token"
+#          schema:
+#            type: "string"
+#            default: "f9403fc5f537b4ab332d"
+#          required: true
+#        - in: "path"
+#          name: "file"
+#          schema:
+#            type: "string"
+#            default: "example.txt"
+#          required: true
+#        # - in: "header"
+#        #   name: "page"
+#        #   schema:
+#        #     type: "array"
+#        #     items:
+#        #       type: "integer"
+#        #     default:
+#        #       - 0
+#        #       - 10
+#        #   description: "0 - offset, 10 - limit"
+#      responses:
+#        200:
+#          description: "successful example operation"
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/StatusOut"
+#        400:
+#          description: "Invalid input"
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/StatusOut"
+  # /crud/{id}:
+  #   put:
+  #     tags:
+  #       - "images"
+  #     summary: "put example"
+  #     description: ""
+  #     operationId: putExample
+  #     parameters:
+  #       - in: "path"
+  #         name: "id"
+  #         schema:
+  #           type: "integer"
+  #           format: "int64"
+  #           default: 123
+  #         required: true
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/Example"
+  #       description: ""
+  #       required: true
+  #     responses:
+  #       200:
+  #         description: "successful example operation"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/StatusOut"
+  #       400:
+  #         description: "Invalid input"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/StatusOut"
+  #   delete:
+  #     tags:
+  #       - "images"
+  #     summary: "delete example"
+  #     description: ""
+  #     operationId: deleteExample
+  #     parameters:
+  #       - in: "path"
+  #         name: "id"
+  #         schema:
+  #           type: "integer"
+  #           format: "int64"
+  #           default: 123
+  #         required: true
+  #     responses:
+  #       200:
+  #         description: "successful example operation"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/StatusOut"
+  #       400:
+  #         description: "Invalid input"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/StatusOut"
+components:
+  schemas:
+    # Example:
+    #   type: "object"
+    #   required:
+    #     - "example"
+    #   properties:
+    #     example:
+    #       type: "integer"
+    #       format: "int64"
+    #       example: 123
+    # ExamplesOut:
+    #   type: "object"
+    #   required:
+    #     - "examples"
+    #     - "paging"
+    #   properties:
+    #     examples:
+    #       type: "array"
+    #       items:
+    #         $ref: "#/components/schemas/Example"
+    #     paging:
+    #       $ref: "#/components/schemas/PagingOut"
+    # PagingOut:
+    #   type: "object"
+    #   required:
+    #     - "from"
+    #     - "to"
+    #     - "count"
+    #     - "hasNext"
+    #     - "totalCount"
+    #   properties:
+    #     from:
+    #       type: "integer"
+    #       format: "int64"
+    #       example: 0
+    #     to:
+    #       type: "integer"
+    #       format: "int64"
+    #       example: 10
+    #     count:
+    #       type: "integer"
+    #       format: "int64"
+    #       example: 10
+    #     hasNext:
+    #       type: "boolean"
+    #       example: true
+    #     totalCount:
+    #       type: "integer"
+    #       format: "int64"
+    #       example: 123
+    Status:
+      type: "object"
+      required:
+        - "ok"
+      properties:
+        ok:
+          type: "boolean"
+          example: false
+        error:
+          type: "string"
+          example: "error"
+    StatusOut:
+      type: "object"
+      required:
+        - "status"
+      properties:
+        status:
+          $ref: "#/components/schemas/Status"
+    IdOut:
+      type: "object"
+      required:
+        - "path"
+      #        - "createDate"
+      properties:
+        path:
+          type: "string"
+          example: "/download/123.txt"
+  #        createDate:
+  #          type: "string"
+  #          format: "date-time"
+  #          example: "2020-01-22 13:56:52.0327222 +0300 MSK m=+0.029999701"
+  #        updateDate:
+  #          type: "string"
+  #          format: "date-time"
+  #          example: "2020-01-22 13:56:52.0327222 +0300 MSK m=+0.029999701"
+#  responses: {}
+#  parameters: {}
+#  examples: {}
+#  requestBodies:
+#    Example:
+#      content:
+#        application/json:
+#          schema:
+#            $ref: "#/components/schemas/Example"
+#      description: ""
+#      required: true

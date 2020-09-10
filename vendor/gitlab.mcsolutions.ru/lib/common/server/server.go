@@ -37,6 +37,7 @@ type HttpServer struct {
 	Docs     string
 	Logger   *logger.Logger
 	Static   *Static
+	Statics  *[]Static
 	Version  string
 	Revision string
 	Envs     *[]env.Env
@@ -109,6 +110,13 @@ func (s *HttpServer) getRouter() *mux.Router {
 		handler := http.StripPrefix(s.Static.Route, http.FileServer(http.Dir(s.Static.FileDir)))
 		router.Handle(s.Static.Route+"/{rest}", handler)
 		router.Handle(s.Static.Route+"/{rest}/{rest}", handler)
+	}
+	if s.Statics != nil {
+		for _, static := range *s.Statics {
+			handler := http.StripPrefix(static.Route, http.FileServer(http.Dir(static.FileDir)))
+			router.Handle(static.Route+"/{rest}", handler)
+			router.Handle(static.Route+"/{rest}/{rest}", handler)
+		}
 	}
 	{
 		handler := http.StripPrefix(PKG, http.FileServer(http.Dir("."+PKG)))

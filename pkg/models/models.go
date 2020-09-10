@@ -1,5 +1,5 @@
 package models
 
-type IdOut struct {
+type PathOut struct {
 	Path string `json:"path"`
 }

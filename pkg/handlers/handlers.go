@@ -44,7 +44,7 @@ func (ro *Routes) uploadFunc(r *http.Request) (int, interface{}, error) {
 	if err != nil {
 		return http.StatusBadRequest, nil, err
 	}
-	return http.StatusOK, &models.IdOut{Path: path}, nil
+	return http.StatusOK, &models.PathOut{Path: path}, nil
 }
 
 //func (ro *Routes) GetDownloadRoute() hh.Route {
